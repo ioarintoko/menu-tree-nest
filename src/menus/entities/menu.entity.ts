@@ -21,10 +21,16 @@ export class Menu {
   @Column({ length: 255, nullable: true })
   url?: string;
 
-  @ManyToOne(() => Menu, (menu) => menu.children, { nullable: true, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'parent_id' }) // 👈 penting untuk relasi self-join
-  parent?: Menu;
+  // 👈 Kolom foreign key parent_id secara eksplisit
+  @Column({ name: 'parent_id', type: 'bigint', nullable: true })
+  parentId: number | null;
 
+  // 👈 Relasi ManyToOne dengan self-join
+  @ManyToOne(() => Menu, (menu) => menu.children, { nullable: true, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'parent_id' })
+  parent: Menu;
+
+  // 👈 Relasi OneToMany untuk mendapatkan anak-anak
   @OneToMany(() => Menu, (menu) => menu.parent)
   children: Menu[];
 

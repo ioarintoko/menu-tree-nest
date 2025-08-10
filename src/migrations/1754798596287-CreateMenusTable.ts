@@ -7,10 +7,10 @@ export class CreateMenusTable1723280234567 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
             CREATE TABLE \`menus\` (
-                \`id\` bigint NOT NULL AUTO_INCREMENT,
+                \`id\` INT NOT NULL AUTO_INCREMENT,
                 \`name\` varchar(255) NOT NULL,
                 \`url\` varchar(255) NULL,
-                \`parent_id\` bigint NULL,
+                \`parent_id\` INT NULL,
                 \`order_no\` int NOT NULL DEFAULT '0',
                 \`created_at\` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
                 \`updated_at\` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

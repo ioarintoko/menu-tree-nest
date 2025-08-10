@@ -5,7 +5,7 @@ export const AppDataSource = new DataSource({
   migrations: [__dirname + '/migrations/*{.ts,.js}'],
   type: 'mysql',
   host: 'localhost',
-  port: 3307,
+  port: 3306,
   username: 'root',
   password: '',
   database: 'menu_tree',

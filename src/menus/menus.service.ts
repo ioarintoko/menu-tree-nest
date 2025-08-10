@@ -38,21 +38,31 @@ export class MenusService {
 
   async findAllAsTree() {
     const menus = await this.menuRepository.find({
-      relations: ['parent', 'children'],
+      // Sekarang, kita hanya perlu relasi 'children' karena parentId sudah ada sebagai kolom
+      relations: ['children'],
       order: { orderNo: 'ASC' },
     });
 
-    // Ubah jadi tree
     const map = new Map<number, any>();
     const roots: any[] = [];
 
+    // Langkah 1: Inisialisasi map dengan semua menu dan tambahkan parentId
     menus.forEach((menu) => {
-      map.set(menu.id, { ...menu, children: [] });
+      map.set(menu.id, {
+        ...menu,
+        parentId: menu.parentId, // 👈 Ambil langsung dari kolom baru
+        children: [],
+      });
     });
 
+    // Langkah 2: Bangun tree menggunakan parentId
     menus.forEach((menu) => {
-      if (menu.parent) {
-        map.get(menu.parent.id).children.push(map.get(menu.id));
+      // Gunakan kolom parentId, bukan lagi objek parent
+      if (menu.parentId !== null) {
+        const parentNode = map.get(menu.parentId);
+        if (parentNode) {
+          parentNode.children.push(map.get(menu.id));
+        }
       } else {
         roots.push(map.get(menu.id));
       }
