@@ -46,7 +46,7 @@ Aplikasi Menu Tree API adalah RESTful API yang dibuat menggunakan NestJS untuk m
 
 ### Mengambil Semua Menu (GET `/api/menus`)
 
-Struktur respons untuk endpoint ini adalah array objek, di mana setiap objek dapat memiliki properti `children` yang berisi sub-menu.
+Struktur respons untuk endpoint ini adalah array objek, di mana setiap objek dapat memiliki properti `children` yang berisi sub-menu. Struktur ini dipilih karena dapat dikembangkan lebih jika nanti ingin memiliki multiparent dan dapat langsung memuat child dari masing-masing menu.
 
 ```json
 [
@@ -55,6 +55,7 @@ Struktur respons untuk endpoint ini adalah array objek, di mana setiap objek dap
     "name": "Dashboard",
     "url": "/dashboard",
     "parentId": null,
+    "parent": [],
     "children": [],
     "orderNo": 1,
     "createdAt": "2025-08-10T16:22:41.000Z",
